@@ -1,4 +1,4 @@
-CREATE DATABASE DeaneryDB
+п»їCREATE DATABASE DeaneryDB
 COLLATE CyrilLic_General_CI_AS
 GO
 
@@ -18,7 +18,7 @@ CREATE TABLE Students
 GO
 
 INSERT INTO Students(name, surname, patronymic, studying_form, speciality, group_name, year, semester, average_mark)
-VALUES ('Иванов', 'Иван', 'Иванович', 0, 'Искусственный интеллект', 'ИИ-121', 2, 3, 7.2)
+VALUES ('РРІР°РЅРѕРІ', 'РРІР°РЅ', 'РРІР°РЅРѕРІРёС‡', 0, 'РСЃРєСѓСЃСЃС‚РІРµРЅРЅС‹Р№ РёРЅС‚РµР»Р»РµРєС‚', 'РР-121', 2, 3, 7.2)
 GO
 
 CREATE TABLE Users
@@ -32,7 +32,11 @@ CREATE TABLE Users
 GO
 
 INSERT INTO Users(login, password, fio, role)
-VALUES ('admin', '123', 'Иванов Иван Иванович', 0)
+VALUES ('admin', '123', 'РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅРѕРІРёС‡', 0)
+GO
+
+ALTER TABLE Users
+ADD UNIQUE(login)
 GO
 
 CREATE TABLE Subjects
@@ -43,8 +47,8 @@ CREATE TABLE Subjects
 )
 
 INSERT INTO Subjects(short_name, long_name)
-VALUES ('ППвИС', 'Проектирование программ в интеллектульных системах'),
-	   ('ЛОИС', 'Логические основы интеллектульных систем')
+VALUES ('РџРџРІРРЎ', 'РџСЂРѕРµРєС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕРіСЂР°РјРј РІ РёРЅС‚РµР»Р»РµРєС‚СѓР»СЊРЅС‹С… СЃРёСЃС‚РµРјР°С…'),
+	   ('Р›РћРРЎ', 'Р›РѕРіРёС‡РµСЃРєРёРµ РѕСЃРЅРѕРІС‹ РёРЅС‚РµР»Р»РµРєС‚СѓР»СЊРЅС‹С… СЃРёСЃС‚РµРј')
 GO
 
 CREATE TABLE Progress
