@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.LoginColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RoleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblLogin = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblFio = new System.Windows.Forms.Label();
@@ -44,6 +40,11 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.userId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoginColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             // 
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userId,
             this.LoginColumn,
             this.PasswordColumn,
             this.FioColumn,
@@ -61,34 +63,6 @@
             this.dgvUsers.Size = new System.Drawing.Size(633, 300);
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUsers_RowHeaderMouseClick);
-            // 
-            // LoginColumn
-            // 
-            this.LoginColumn.DataPropertyName = "Login";
-            this.LoginColumn.HeaderText = "Логин";
-            this.LoginColumn.Name = "LoginColumn";
-            this.LoginColumn.ReadOnly = true;
-            // 
-            // PasswordColumn
-            // 
-            this.PasswordColumn.DataPropertyName = "Password";
-            this.PasswordColumn.HeaderText = "Пароль";
-            this.PasswordColumn.Name = "PasswordColumn";
-            this.PasswordColumn.ReadOnly = true;
-            // 
-            // FioColumn
-            // 
-            this.FioColumn.DataPropertyName = "Fio";
-            this.FioColumn.HeaderText = "ФИО";
-            this.FioColumn.Name = "FioColumn";
-            this.FioColumn.ReadOnly = true;
-            // 
-            // RoleColumn
-            // 
-            this.RoleColumn.DataPropertyName = "Role";
-            this.RoleColumn.HeaderText = "Роль";
-            this.RoleColumn.Name = "RoleColumn";
-            this.RoleColumn.ReadOnly = true;
             // 
             // lblLogin
             // 
@@ -190,6 +164,41 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // userId
+            // 
+            this.userId.DataPropertyName = "UserId";
+            this.userId.HeaderText = "user_id";
+            this.userId.Name = "userId";
+            this.userId.Visible = false;
+            // 
+            // LoginColumn
+            // 
+            this.LoginColumn.DataPropertyName = "Login";
+            this.LoginColumn.HeaderText = "Логин";
+            this.LoginColumn.Name = "LoginColumn";
+            this.LoginColumn.ReadOnly = true;
+            // 
+            // PasswordColumn
+            // 
+            this.PasswordColumn.DataPropertyName = "Password";
+            this.PasswordColumn.HeaderText = "Пароль";
+            this.PasswordColumn.Name = "PasswordColumn";
+            this.PasswordColumn.ReadOnly = true;
+            // 
+            // FioColumn
+            // 
+            this.FioColumn.DataPropertyName = "Fio";
+            this.FioColumn.HeaderText = "ФИО";
+            this.FioColumn.Name = "FioColumn";
+            this.FioColumn.ReadOnly = true;
+            // 
+            // RoleColumn
+            // 
+            this.RoleColumn.DataPropertyName = "Role";
+            this.RoleColumn.HeaderText = "Роль";
+            this.RoleColumn.Name = "RoleColumn";
+            this.RoleColumn.ReadOnly = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -220,10 +229,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridViewTextBoxColumn LoginColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PasswordColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FioColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RoleColumn;
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblFio;
@@ -236,5 +241,10 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LoginColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PasswordColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FioColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoleColumn;
     }
 }

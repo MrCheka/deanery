@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deanery.Classes
 {
-    public class User
+    public class User: IEquatable<User>
     {
         public enum UserRole
         {
@@ -87,12 +87,11 @@ namespace Deanery.Classes
             return !(left == right);
         }
 
-        public override bool Equals(object obj)
+        public bool Equals(User other)
         {
-            var user = obj as User;
-            return user != null &&
-                Login == user.Login &&
-                Password == user.Password;
+            return other != null &&
+                Login == other.Login &&
+                Password == other.Password;
         }
     }
 }

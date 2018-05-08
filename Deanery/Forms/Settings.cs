@@ -20,6 +20,7 @@ namespace Deanery.Forms
             InitializeComponent();
             dgvUsers.AutoGenerateColumns = false;
             cmbRole.SelectedIndex = 2;
+            RoleColumn.CellTemplate = new UserRoleDGVTextBoxCell();
         }
 
         private void Settings_Load(object sender, EventArgs e)
@@ -53,10 +54,10 @@ namespace Deanery.Forms
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            txtLogin.Text = dgvUsers[0, e.RowIndex].Value.ToString();
-            txtPassword.Text = dgvUsers[1, e.RowIndex].Value.ToString();
-            txtFio.Text = dgvUsers[2, e.RowIndex].Value.ToString();
-            string role = dgvUsers[3, e.RowIndex].Value.ToString();
+            txtLogin.Text = dgvUsers[1, e.RowIndex].Value.ToString();
+            txtPassword.Text = dgvUsers[2, e.RowIndex].Value.ToString();
+            txtFio.Text = dgvUsers[3, e.RowIndex].Value.ToString();
+            string role = dgvUsers[4, e.RowIndex].Value.ToString();
             if (role == User.UserRole.Admin.ToString())
                 cmbRole.SelectedIndex = 0;
             else if (role == User.UserRole.Professor.ToString())
@@ -86,23 +87,69 @@ namespace Deanery.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var removeUser = new User();
-            removeUser.Login = txtLogin.Text;
-            removeUser.Password = txtPassword.Text;
-            removeUser.Fio = txtFio.Text;
-            removeUser.Role = (User.UserRole)cmbRole.SelectedIndex;
+            var selectedRows = dgvUsers.SelectedRows;
+            for (int i = 0; i < selectedRows.Count; i++)
+            {
+                var removeUser = new User();
+                removeUser.UserId = Convert.ToInt32(selectedRows[i].Cells[0].Value);
+                _userList.Remove(removeUser);
+            }
 
-            bool a = _userList.Remove(removeUser);
             dgvUsers.DataSource = typeof(List<User>);
             dgvUsers.DataSource = _userList.Value;
+
+            txtLogin.Text = "";
+            txtPassword.Text = "";
+            txtFio.Text = "";
+            cmbRole.SelectedIndex = 2;
 
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (Service.CurrentUser.Role != User.UserRole.Admin)
+            {
+                if (txtLogin.Text == "" || txtPassword.Text == "" || txtFio.Text == "")
+                    MessageBox.Show("Не все поля заполнены!", "Ошибка!");
+                else
+                {
+                    User oldUser = _userList.Find(Service.CurrentUser);
+                    oldUser.Login = txtLogin.Text;
+                    oldUser.Password = txtPassword.Text;
+                    oldUser.Fio = txtFio.Text;
+                    oldUser.Role = (User.UserRole)cmbRole.SelectedIndex;
+
+                    _userList.Update();
+
+                    dgvUsers.DataSource = typeof(List<User>);
+                    dgvUsers.DataSource = _userList.Value;
+                }
+            }
             _userList.Update();
+            _userList.SetNewCurrentUser();
             dgvUsers.DataSource = typeof(List<User>);
             dgvUsers.DataSource = _userList.Value;
         }
     }
+
+    public class UserRoleDGVTextBoxCell : DataGridViewTextBoxCell
+    {
+        protected override object GetFormattedValue(object value,
+            int rowIndex,
+            ref DataGridViewCellStyle cellStyle,
+            TypeConverter valueTypeConverter,
+            TypeConverter formattedValueTypeConverter,
+            DataGridViewDataErrorContexts context)
+        {
+            User.UserRole role = (User.UserRole)(int)value;
+            switch (role)
+            {
+                case User.UserRole.Admin: return "Сотрудник деканата";
+                case User.UserRole.Professor: return "Преподаватель";
+                case User.UserRole.Student: return "Студент";
+                default: throw new NotImplementedException();
+            };
+        }
+    }
+
 }

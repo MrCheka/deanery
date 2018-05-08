@@ -17,7 +17,7 @@ namespace Deanery.Interfaces
         bool RemoveAt(int index);
         T Find(T item);
         int FindIndex(T item);
-        
+
         void Fill();
         bool Update();
     }

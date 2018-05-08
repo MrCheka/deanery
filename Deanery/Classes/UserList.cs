@@ -94,7 +94,7 @@ namespace Deanery.Classes
 
             Service.CloseConnection(connection);
 
-            return _userList.Remove(item);
+            return _userList.RemoveAll(i => i.UserId == item.UserId) > 0;
         }
 
         public bool RemoveAt(int index)
@@ -169,6 +169,7 @@ namespace Deanery.Classes
 
                     var command = new SqlCommand
                     {
+                        Connection = connection,
                         Transaction = transaction,
                         CommandText = request
                     };
@@ -222,6 +223,12 @@ namespace Deanery.Classes
             Service.CloseConnection(connection);
 
             return num == 0;
+        }
+
+        public void SetNewCurrentUser()
+        {
+            User curUser = _userList.Find(i => i.UserId == Service.CurrentUser.UserId);
+            Service.CurrentUser = curUser;
         }
     }
 }
