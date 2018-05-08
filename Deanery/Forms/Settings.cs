@@ -58,12 +58,7 @@ namespace Deanery.Forms
             txtPassword.Text = dgvUsers[2, e.RowIndex].Value.ToString();
             txtFio.Text = dgvUsers[3, e.RowIndex].Value.ToString();
             string role = dgvUsers[4, e.RowIndex].Value.ToString();
-            if (role == User.UserRole.Admin.ToString())
-                cmbRole.SelectedIndex = 0;
-            else if (role == User.UserRole.Professor.ToString())
-                cmbRole.SelectedIndex = 1;
-            else if (role == User.UserRole.Student.ToString())
-                cmbRole.SelectedIndex = 2;
+            cmbRole.SelectedIndex = Convert.ToInt32(role);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
