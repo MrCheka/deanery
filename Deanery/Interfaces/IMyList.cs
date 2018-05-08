@@ -17,9 +17,7 @@ namespace Deanery.Interfaces
         bool RemoveAt(int index);
         T Find(T item);
         int FindIndex(T item);
-
-        SqlConnection OpenConnection();
-        void CloseConnection(SqlConnection connection);
+        
         void Fill();
         bool Update();
     }

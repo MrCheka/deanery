@@ -55,10 +55,10 @@
             this.PasswordColumn,
             this.FioColumn,
             this.RoleColumn});
-            this.dgvUsers.Location = new System.Drawing.Point(13, 48);
+            this.dgvUsers.Location = new System.Drawing.Point(12, 29);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(632, 281);
+            this.dgvUsers.Size = new System.Drawing.Size(633, 300);
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUsers_RowHeaderMouseClick);
             // 
@@ -212,7 +212,6 @@
             this.MinimizeBox = false;
             this.Name = "Settings";
             this.Text = "Настройки";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.Load += new System.EventHandler(this.Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);

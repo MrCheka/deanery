@@ -14,23 +14,15 @@ namespace Deanery.Classes
     public class UserList: IMyList<User>
     {
         private List<User> _userList;
-        private string _connectionString;
 
         public List<User> Value
         {
             get { return _userList; }
         }
 
-        public string ConnectionString
-        {
-            get { return _connectionString; }
-            set { _connectionString = value; }
-        }
-
-        public UserList(string connectionString)
+        public UserList()
         {
             _userList = new List<User>();
-            _connectionString = connectionString;
         }
 
         public void Add(User item)
@@ -38,7 +30,7 @@ namespace Deanery.Classes
             if (Find(item) != null)
                 return;
 
-            SqlConnection connection = OpenConnection();
+            SqlConnection connection = Service.OpenConnection();
 
             string request = " INSERT INTO Users " +
                    " (login, password, fio, role) " +
@@ -77,48 +69,30 @@ namespace Deanery.Classes
             if (command.ExecuteNonQuery() != 0)
                 _userList.Add(item);
 
-            CloseConnection(connection);
+            Service.CloseConnection(connection);
         }
 
         public bool Remove(User item)
         {
-            SqlConnection connection = OpenConnection();
+            SqlConnection connection = Service.OpenConnection();
+
+            if (item.UserId == 0)
+                return _userList.Remove(item);
 
             string request = " DELETE FROM Users " +
-                   " WHERE login = @login " +
-                   " AND password = @password " +
-                   " AND fio = @fio " +
-                   " AND role = @role ";
+                   " WHERE user_id = @user_id ";
 
             var command = new SqlCommand(request, connection);
 
             var parameter = new SqlParameter();
-            parameter.ParameterName = "@login";
-            parameter.Value = item.Login;
-            parameter.SqlDbType = SqlDbType.VarChar;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter();
-            parameter.ParameterName = "@password";
-            parameter.Value = item.Password;
-            parameter.SqlDbType = SqlDbType.VarChar;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter();
-            parameter.ParameterName = "@fio";
-            parameter.Value = item.Fio;
-            parameter.SqlDbType = SqlDbType.VarChar;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter();
-            parameter.ParameterName = "@role";
-            parameter.Value = item.Role;
+            parameter.ParameterName = "@user_id";
+            parameter.Value = item.UserId;
             parameter.SqlDbType = SqlDbType.Int;
             command.Parameters.Add(parameter);
 
             command.ExecuteNonQuery();
 
-            CloseConnection(connection);
+            Service.CloseConnection(connection);
 
             return _userList.Remove(item);
         }
@@ -144,35 +118,9 @@ namespace Deanery.Classes
             return _userList.FindIndex(i => i == item);
         }
 
-        public SqlConnection OpenConnection()
-        {
-            var connection = new SqlConnection(ConnectionString);
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!");
-            }
-            return connection;
-        }
-
-        public void CloseConnection(SqlConnection connection)
-        {
-            try
-            {
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!");
-            }
-        }
-
         public void Fill()
         {
-            SqlConnection connection = OpenConnection();
+            SqlConnection connection = Service.OpenConnection();
 
             string request = " SELECT * FROM Users ";
             var command = new SqlCommand(request, connection);
@@ -198,14 +146,14 @@ namespace Deanery.Classes
                 }
             }
 
-            CloseConnection(connection);
+            Service.CloseConnection(connection);
         }
 
         public bool Update()
         {
             int num = 0;
 
-            SqlConnection connection = OpenConnection();
+            SqlConnection connection = Service.OpenConnection();
             SqlTransaction transaction = connection.BeginTransaction();
 
             for (int i = 0; i < _userList.Count; i++)
@@ -271,7 +219,7 @@ namespace Deanery.Classes
                 transaction.Rollback();
             }
 
-            CloseConnection(connection);
+            Service.CloseConnection(connection);
 
             return num == 0;
         }

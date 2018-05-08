@@ -13,12 +13,10 @@ namespace Deanery.Forms
 {
     public partial class Settings : Form
     {
-        private User _currentUser;
         private UserList _userList;
 
-        public Settings(User currentUser)
+        public Settings()
         {
-            _currentUser = currentUser;
             InitializeComponent();
             dgvUsers.AutoGenerateColumns = false;
             cmbRole.SelectedIndex = 2;
@@ -26,7 +24,7 @@ namespace Deanery.Forms
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            if (_currentUser.Role != User.UserRole.Admin)
+            if (Service.CurrentUser.Role != User.UserRole.Admin)
             {
                 btnAdd.Visible = false;
                 btnDelete.Visible = false;
@@ -41,20 +39,16 @@ namespace Deanery.Forms
                 btnSave.Location = new System.Drawing.Point(240, 148);
                 ClientSize = new System.Drawing.Size(341, 240);
 
-                txtLogin.Text = _currentUser.Login;
-                txtPassword.Text = _currentUser.Password;
-                txtFio.Text = _currentUser.Fio;
+                txtLogin.Text = Service.CurrentUser.Login;
+                txtPassword.Text = Service.CurrentUser.Password;
+                txtFio.Text = Service.CurrentUser.Fio;
             }
 
 
-            _userList = new UserList(Program.GetConnectionString());
+            _userList = new UserList();
             _userList.Fill();
 
             dgvUsers.DataSource = _userList.Value;
-        }
-
-        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
-        {
         }
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)

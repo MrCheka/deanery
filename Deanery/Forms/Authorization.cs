@@ -13,7 +13,7 @@ namespace Deanery.Forms
 {
     public partial class Authorization : Form
     {
-        private UserList _loginList;
+        private UserList _userList;
 
         public Authorization()
         {
@@ -22,10 +22,11 @@ namespace Deanery.Forms
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            User currentUser = _loginList.Find(txtLogin.Text, txtPassword.Text);
+            User currentUser = _userList.Find(txtLogin.Text, txtPassword.Text);
             if (currentUser != null)
             {
-                var studentsForm = new Students(currentUser);
+                Service.CurrentUser = currentUser;
+                var studentsForm = new Students();
                 studentsForm.AddOwnedForm(this);
                 Hide();
                 studentsForm.Show();
@@ -43,12 +44,8 @@ namespace Deanery.Forms
 
         private void Authorization_Load(object sender, EventArgs e)
         {
-            _loginList = new UserList(Program.GetConnectionString());
-            _loginList.Fill();
-        }
-
-        private void Authorization_FormClosed(object sender, FormClosedEventArgs e)
-        {
+            _userList = new UserList();
+            _userList.Fill();
         }
     }
 }

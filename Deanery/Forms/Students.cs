@@ -14,11 +14,9 @@ namespace Deanery.Forms
     public partial class Students : Form
     {
         private StudentList _studentList;
-        private User _currentUser;
 
-        public Students(User currentUser)
+        public Students()
         {
-            _currentUser = currentUser;
             InitializeComponent();
         }
 
@@ -30,14 +28,14 @@ namespace Deanery.Forms
         private void Students_Load(object sender, EventArgs e)
         {
             _studentList = new StudentList();
-            _studentList.FillStudentList(Program.GetConnectionString());
+            _studentList.FillStudentList(Service.GetConnectionString());
 
             dgvStudents.DataSource = _studentList.Value;
         }
 
         private void tsmiSettings_Click(object sender, EventArgs e)
         {
-            var settingsForm = new Settings(_currentUser);
+            var settingsForm = new Settings();
             settingsForm.ShowDialog();
         }
     }
