@@ -79,6 +79,7 @@ namespace Deanery.Forms
                 newUser.Role = (User.UserRole)cmbRole.SelectedIndex;
 
                 _userList.Add(newUser);
+                _userList.Fill();
 
                 dgvUsers.DataSource = typeof(List<User>);
                 dgvUsers.DataSource = _userList.Value;
@@ -95,14 +96,13 @@ namespace Deanery.Forms
                 _userList.Remove(removeUser);
             }
 
-            dgvUsers.DataSource = typeof(List<User>);
-            dgvUsers.DataSource = _userList.Value;
-
             txtLogin.Text = "";
             txtPassword.Text = "";
             txtFio.Text = "";
             cmbRole.SelectedIndex = 2;
 
+            dgvUsers.DataSource = typeof(List<User>);
+            dgvUsers.DataSource = _userList.Value;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

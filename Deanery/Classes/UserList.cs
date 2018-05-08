@@ -120,6 +120,7 @@ namespace Deanery.Classes
 
         public void Fill()
         {
+            _userList.Clear();
             SqlConnection connection = Service.OpenConnection();
 
             string request = " SELECT * FROM Users ";
