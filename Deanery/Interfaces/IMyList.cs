@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
@@ -17,8 +18,8 @@ namespace Deanery.Interfaces
         T Find(T item);
         int FindIndex(T item);
 
-        void OpenConnection(string connectionString);
-        void CloseConnection();
+        SqlConnection OpenConnection();
+        void CloseConnection(SqlConnection connection);
         void Fill();
         bool Update();
     }

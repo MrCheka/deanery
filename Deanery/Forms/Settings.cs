@@ -47,8 +47,7 @@ namespace Deanery.Forms
             }
 
 
-            _userList = new UserList();
-            _userList.OpenConnection(Program.GetConnectionString());
+            _userList = new UserList(Program.GetConnectionString());
             _userList.Fill();
 
             dgvUsers.DataSource = _userList.Value;
@@ -56,7 +55,6 @@ namespace Deanery.Forms
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _userList.CloseConnection();
         }
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)

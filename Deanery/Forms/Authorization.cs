@@ -43,14 +43,12 @@ namespace Deanery.Forms
 
         private void Authorization_Load(object sender, EventArgs e)
         {
-            _loginList = new UserList();
-            _loginList.OpenConnection(Program.GetConnectionString());
+            _loginList = new UserList(Program.GetConnectionString());
             _loginList.Fill();
         }
 
         private void Authorization_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _loginList.CloseConnection();
         }
     }
 }

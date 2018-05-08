@@ -10,13 +10,22 @@ namespace Deanery.Classes
     {
         public enum UserRole
         {
-            Admin = 0, Professor, Student
+            Admin = 0,
+            Professor = 1,
+            Student = 2
         };
 
+        private int _userId;
         private string _login;
         private string _password;
         private string _fio;
         private UserRole _role;
+
+        public int UserId
+        {
+            get { return _userId; }
+            set { _userId = value; }
+        }
 
         public string Login
         {
@@ -67,15 +76,23 @@ namespace Deanery.Classes
         {
             if (left is null && right is null)
                 return true;
-            else if (left is null || right is null)
+            else if (left is null)
                 return false;
-            return left._login == right._login &&
-                left._password == right._password;
+            else
+                return left.Equals(right);
         }
 
         public static bool operator !=(User left, User right)
         {
             return !(left == right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var user = obj as User;
+            return user != null &&
+                Login == user.Login &&
+                Password == user.Password;
         }
     }
 }
