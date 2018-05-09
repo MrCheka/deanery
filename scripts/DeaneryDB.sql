@@ -81,12 +81,11 @@ CREATE TABLE Attendance
 (
 	attendance_id INT NOT NULL IDENTITY PRIMARY KEY,
 	subject_id INT NOT NULL,
-	student_id INT NOT NULL,
+	group_name nvarchar(10) NOT NULL,
 	fio nvarchar(100) NOT NULL,
 	year int NOT NULL,
 	semester int NOT NULL,
-	FOREIGN KEY(subject_id) REFERENCES Subjects(subject_id),
-	FOREIGN KEY(student_id) REFERENCES Students(student_id)
+	FOREIGN KEY(subject_id) REFERENCES Subjects(subject_id)
 )
 GO
 
@@ -102,8 +101,10 @@ GO
 CREATE TABLE LessonStudents
 (
 	ls_id INT NOT NULL IDENTITY PRIMARY KEY,
+	lesson_id INT NOT NULL,
 	student_id INT NOT NULL,
 	is_visited BIT NOT NULL DEFAULT 0,
-	FOREIGN KEY(student_id) REFERENCES Students(student_id)
+	FOREIGN KEY(student_id) REFERENCES Students(student_id),
+	FOREIGN KEY(lesson_id) REFERENCES Lessons(lesson_id)
 )
 GO
