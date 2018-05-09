@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Attendance.cs" />
+    <Compile Include="Classes\Exam.cs" />
     <Compile Include="Classes\Lesson.cs" />
+    <Compile Include="Classes\Progress.cs" />
+    <Compile Include="Classes\Semester.cs" />
     <Compile Include="Classes\Subject.cs" />
     <Compile Include="Classes\SubjectList.cs" />
     <Compile Include="Forms\AttendanceForm.cs">
