@@ -14,9 +14,11 @@ namespace Deanery.Forms
     public partial class Settings : Form
     {
         private UserList _userList;
+        private int _selectedUserId;
 
         public Settings()
         {
+            _selectedUserId = 0;
             InitializeComponent();
             dgvUsers.AutoGenerateColumns = false;
             cmbRole.SelectedIndex = 2;
@@ -54,11 +56,11 @@ namespace Deanery.Forms
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            _selectedUserId = Convert.ToInt32(dgvUsers[0, e.RowIndex].Value);
             txtLogin.Text = dgvUsers[1, e.RowIndex].Value.ToString();
             txtPassword.Text = dgvUsers[2, e.RowIndex].Value.ToString();
             txtFio.Text = dgvUsers[3, e.RowIndex].Value.ToString();
-            string role = dgvUsers[4, e.RowIndex].Value.ToString();
-            cmbRole.SelectedIndex = Convert.ToInt32(role);
+            cmbRole.SelectedIndex = Convert.ToInt32(dgvUsers[4, e.RowIndex].Value);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -115,13 +117,21 @@ namespace Deanery.Forms
                     oldUser.Role = (User.UserRole)cmbRole.SelectedIndex;
 
                     _userList.Update();
-
-                    dgvUsers.DataSource = typeof(List<User>);
-                    dgvUsers.DataSource = _userList.Value;
                 }
             }
-            _userList.Update();
-            _userList.SetNewCurrentUser();
+            else
+            {
+                var editedUser = new User();
+                editedUser.Login = txtLogin.Text;
+                editedUser.Password = txtPassword.Text;
+                editedUser.Fio = txtFio.Text;
+                editedUser.Role = (User.UserRole)cmbRole.SelectedIndex;
+
+                _userList.Replace(_selectedUserId, editedUser);
+                _userList.Update();
+            }
+            if (_selectedUserId == Service.CurrentUser.UserId)
+                _userList.SetNewCurrentUser();
             dgvUsers.DataSource = typeof(List<User>);
             dgvUsers.DataSource = _userList.Value;
         }
@@ -146,5 +156,4 @@ namespace Deanery.Forms
             };
         }
     }
-
 }

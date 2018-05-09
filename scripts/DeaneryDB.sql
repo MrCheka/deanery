@@ -18,7 +18,7 @@ CREATE TABLE Students
 GO
 
 INSERT INTO Students(name, surname, patronymic, studying_form, speciality, group_name, year, semester, average_mark)
-VALUES ('Иванов', 'Иван', 'Иванович', 0, 'Искусственный интеллект', 'ИИ-121', 2, 3, 7.2)
+VALUES ('Иван', 'Иванов', 'Иванович', 0, 'Искусственный интеллект', 'ИИ-121', 2, 3, 7.2)
 GO
 
 CREATE TABLE Users

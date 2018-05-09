@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Deanery.Interfaces;
 
 namespace Deanery.Classes
 {
-    public class StudentList
+    public class StudentList : IMyList<Student>
     {
         private List<Student> _studentList;
-        private DataTable _studentsDataTable;
 
         public List<Student> Value
         {
@@ -22,48 +22,280 @@ namespace Deanery.Classes
         public StudentList()
         {
             _studentList = new List<Student>();
-            _studentsDataTable = new DataTable("Students");
         }
 
-        public void AddStudent(Student student)
+        public void Add(Student item)
         {
-            _studentList.Add(student);
+            if (Find(item) != null)
+                return;
+
+            SqlConnection connection = Service.OpenConnection();
+
+            string request = " INSERT INTO Students " +
+                " (name, surname, patronymic," +
+                " studying_form, speciality, group_name," +
+                " year, semester, average_mark) " +
+                " VALUES ( " +
+                " @name, " +
+                " @surname, " +
+                " @patronymic, " +
+                " @studying_form, " +
+                " @speciality, " +
+                " @group_name, " +
+                " @year, " +
+                " @semester, " +
+                " @average_mark) ";
+
+            var command = new SqlCommand(request, connection);
+
+            var parameter = new SqlParameter();
+            parameter.ParameterName = "@name";
+            parameter.Value = item.Name;
+            parameter.SqlDbType = SqlDbType.VarChar;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@surname";
+            parameter.Value = item.Surname;
+            parameter.SqlDbType = SqlDbType.VarChar;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@patronymic";
+            parameter.Value = item.Patronymic;
+            parameter.SqlDbType = SqlDbType.VarChar;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@studying_form";
+            parameter.Value = item.StudyingForm;
+            parameter.SqlDbType = SqlDbType.Int;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@speciality";
+            parameter.Value = item.Speciality;
+            parameter.SqlDbType = SqlDbType.VarChar;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@group_name";
+            parameter.Value = item.Group;
+            parameter.SqlDbType = SqlDbType.VarChar;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@year";
+            parameter.Value = item.Year;
+            parameter.SqlDbType = SqlDbType.Int;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@semester";
+            parameter.Value = item.Semester;
+            parameter.SqlDbType = SqlDbType.Int;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter();
+            parameter.ParameterName = "@average_mark";
+            parameter.Value = item.AverageMark;
+            parameter.SqlDbType = SqlDbType.Float;
+            command.Parameters.Add(parameter);
+
+            if (command.ExecuteNonQuery() != 0)
+                _studentList.Add(item);
+
+            Service.CloseConnection(connection);
         }
 
-        public bool RemoveStudent(Student student)
+        public bool Remove(Student item)
         {
-            return _studentList.Remove(student);
+            SqlConnection connection = Service.OpenConnection();
+
+            if (item.StudentId == 0)
+                return _studentList.Remove(item);
+
+            string request = " DELETE FROM Students " +
+                "WHERE student_id = @student_id ";
+
+            var command = new SqlCommand(request, connection);
+
+            var parameter = new SqlParameter();
+            parameter.ParameterName = "@student_id";
+            parameter.Value = item.StudentId;
+            parameter.SqlDbType = SqlDbType.Int;
+            command.Parameters.Add(parameter);
+
+            command.ExecuteNonQuery();
+
+            Service.CloseConnection(connection);
+
+            return _studentList.RemoveAll(i => i.StudentId == item.StudentId) > 0;
         }
 
-        public Student FindStudent(Student student)
+        public Student Find(Student item)
         {
-            return _studentList.Find(s => s == student);
+            return _studentList.Find(i => i == item);
         }
 
-        public void FillStudentList(string connectionString)
+        public Student Find(int studentId)
         {
-            var sqlDataAdapter =
-                new SqlDataAdapter("SELECT * FROM Students", connectionString);
+            return _studentList.Find(i => i.StudentId == studentId);
+        }
 
-            sqlDataAdapter.Fill(_studentsDataTable);
+        public int FindIndex(Student item)
+        {
+            return _studentList.FindIndex(i => i == item);
+        }
 
-            for (int curRow = 0; curRow < _studentsDataTable.Rows.Count; curRow++)
+        public void Fill()
+        {
+            _studentList.Clear();
+            SqlConnection connection = Service.OpenConnection();
+
+            string request = " SELECT * FROM Students ";
+            var command = new SqlCommand(request, connection);
+            using (SqlDataReader dataReader = command.ExecuteReader())
             {
-                var newStudent = new Student
+                while (dataReader.Read())
                 {
-                    Name = _studentsDataTable.Rows[curRow]["name"].ToString(),
-                    Surname = _studentsDataTable.Rows[curRow]["surname"].ToString(),
-                    Patronymic = _studentsDataTable.Rows[curRow]["patronymic"].ToString(),
-                    StudyingForm =
-                    Convert.ToInt32(_studentsDataTable.Rows[curRow]["studying_form"]) == 0 ? Student.FormOfStudying.Free : Student.FormOfStudying.Pay,
-                    Speciality = _studentsDataTable.Rows[curRow]["speciality"].ToString(),
-                    Group = _studentsDataTable.Rows[curRow]["group_name"].ToString(),
-                    Year = Convert.ToInt32(_studentsDataTable.Rows[curRow]["year"]),
-                    Semester = Convert.ToInt32(_studentsDataTable.Rows[curRow]["semester"]),
-                    AverageMark = Convert.ToSingle(_studentsDataTable.Rows[curRow]["average_mark"])
-                };
-                _studentList.Add(newStudent);
+                    var newStudent = new Student();
+                    newStudent.StudentId = Convert.ToInt32(dataReader["student_id"]);
+                    newStudent.Name = dataReader["name"].ToString();
+                    newStudent.Surname = dataReader["surname"].ToString();
+                    newStudent.Patronymic = dataReader["patronymic"].ToString();
+                    newStudent.StudyingForm = (Student.FormOfStudying)dataReader["studying_form"];
+                    newStudent.Speciality = dataReader["speciality"].ToString();
+                    newStudent.Group = dataReader["group_name"].ToString();
+                    newStudent.Year = Convert.ToInt32(dataReader["year"]);
+                    newStudent.Semester = Convert.ToInt32(dataReader["semester"]);
+                    newStudent.AverageMark = Convert.ToSingle(dataReader["average_mark"]);
+
+                    _studentList.Add(newStudent);
+                }
             }
+
+            Service.CloseConnection(connection);
+        }
+
+        public void Update()
+        {
+            SqlConnection connection = Service.OpenConnection();
+            SqlTransaction transaction = connection.BeginTransaction();
+
+            for (int i = 0; i < _studentList.Count; i++)
+            {
+                if (_studentList[i].StudentId != 0)
+                {
+                    string request = " UPDATE Students " +
+                        " SET name = @name, " +
+                        " surname = @surname, " +
+                        " patronymic = @patronymic, " +
+                        " studying_form = @studying_form, " +
+                        " speciality = @speciality, " +
+                        " group_name = @group_name, " +
+                        " year = @year, " +
+                        " semester = @semester, " +
+                        " average_mark = @average_mark " +
+                        " WHERE student_id = @student_id ";
+
+                    var command = new SqlCommand
+                    {
+                        Connection = connection,
+                        Transaction = transaction,
+                        CommandText = request
+                    };
+
+                    var parameter = new SqlParameter();
+                    parameter.ParameterName = "@name";
+                    parameter.Value = _studentList[i].Name;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@surname";
+                    parameter.Value = _studentList[i].Surname;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@patronymic";
+                    parameter.Value = _studentList[i].Patronymic;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@studying_form";
+                    parameter.Value = _studentList[i].StudyingForm;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@speciality";
+                    parameter.Value = _studentList[i].Speciality;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@group_name";
+                    parameter.Value = _studentList[i].Group;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@year";
+                    parameter.Value = _studentList[i].Year;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@semester";
+                    parameter.Value = _studentList[i].Semester;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@average_mark";
+                    parameter.Value = _studentList[i].AverageMark;
+                    parameter.SqlDbType = SqlDbType.Float;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@student_id";
+                    parameter.Value = _studentList[i].StudentId;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    command.Parameters.Add(parameter);
+
+                    command.ExecuteNonQuery();
+                }
+                else
+                    Add(_studentList[i]);
+            }
+
+            try
+            {
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!");
+                transaction.Rollback();
+            }
+
+            Service.CloseConnection(connection);
+        }
+
+        public void Replace(int id, Student item)
+        {
+            int index = _studentList.FindIndex(i => i.StudentId == id);
+            _studentList[index].Name = item.Name;
+            _studentList[index].Surname = item.Surname;
+            _studentList[index].Patronymic = item.Patronymic;
+            _studentList[index].StudyingForm = item.StudyingForm;
+            _studentList[index].Speciality = item.Speciality;
+            _studentList[index].Year = item.Year;
+            _studentList[index].Semester = item.Semester;
+            _studentList[index].AverageMark = item.AverageMark;
         }
     }
 }

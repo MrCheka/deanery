@@ -97,11 +97,6 @@ namespace Deanery.Classes
             return _userList.RemoveAll(i => i.UserId == item.UserId) > 0;
         }
 
-        public bool RemoveAt(int index)
-        {
-            return Remove(_userList[index]);
-        }
-
         public User Find(User item)
         {
             return _userList.Find(i => i == item);
@@ -150,10 +145,8 @@ namespace Deanery.Classes
             Service.CloseConnection(connection);
         }
 
-        public bool Update()
+        public void Update()
         {
-            int num = 0;
-
             SqlConnection connection = Service.OpenConnection();
             SqlTransaction transaction = connection.BeginTransaction();
 
@@ -205,7 +198,7 @@ namespace Deanery.Classes
                     parameter.SqlDbType = SqlDbType.Int;
                     command.Parameters.Add(parameter);
 
-                    num += command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
                 else
                     Add(_userList[i]);
@@ -222,8 +215,15 @@ namespace Deanery.Classes
             }
 
             Service.CloseConnection(connection);
+        }
 
-            return num == 0;
+        public void Replace(int id, User item)
+        {
+            int index = _userList.FindIndex(i => i.UserId == id);
+            _userList[index].Login = item.Login;
+            _userList[index].Password = item.Password;
+            _userList[index].Role = item.Role;
+            _userList[index].Fio = item.Fio;
         }
 
         public void SetNewCurrentUser()

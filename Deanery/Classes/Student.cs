@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace Deanery.Classes
 {
-    public class Student
+    public class Student: IEquatable<Student>
     {
-        public enum FormOfStudying { Free, Pay };
+        public enum FormOfStudying
+        {
+            Free = 0,
+            Pay = 1
+        };
 
+        private int _studentId;
         private string _name;
         private string _surname;
         private string _patronymic;
@@ -19,6 +24,12 @@ namespace Deanery.Classes
         private int _year;
         private int _semester;
         private float _averageMark;
+
+        public int StudentId
+        {
+            get { return _studentId; }
+            set { _studentId = value; }
+        }
 
         public string Name
         {
@@ -83,22 +94,29 @@ namespace Deanery.Classes
         {
             if (left is null && right is null)
                 return true;
-            if (left is null || right is null)
+            else if (left is null)
                 return false;
-            return left.Name == right.Name &&
-                left.Surname == right.Surname &&
-                left.Patronymic == right.Patronymic &&
-                left.StudyingForm == right.StudyingForm &&
-                left.Speciality == right.Speciality &&
-                left.Group == right.Group &&
-                left.Year == right.Year &&
-                left.Semester == right.Semester &&
-                left.AverageMark == right.AverageMark;
+            else
+                return left.Equals(right);
         }
 
         public static bool operator !=(Student left, Student right)
         {
             return !(left == right);
+        }
+
+        public bool Equals(Student other)
+        {
+            return other != null &&
+                Name == other.Name &&
+                Surname == other.Surname &&
+                Patronymic == other.Patronymic &&
+                StudyingForm == other.StudyingForm &&
+                Speciality == other.Speciality &&
+                Group == other.Group &&
+                Year == other.Year &&
+                Semester == other.Semester &&
+                AverageMark == other.AverageMark;
         }
     }
 }

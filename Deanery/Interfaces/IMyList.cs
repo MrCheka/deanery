@@ -14,11 +14,11 @@ namespace Deanery.Interfaces
 
         void Add(T item);
         bool Remove(T item);
-        bool RemoveAt(int index);
         T Find(T item);
         int FindIndex(T item);
+        void Replace(int id, T item);
 
         void Fill();
-        bool Update();
+        void Update();
     }
 }

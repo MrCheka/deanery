@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Subject.cs" />
+    <Compile Include="Classes\SubjectList.cs" />
     <Compile Include="Forms\Authorization.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +59,12 @@
     <Compile Include="Classes\Student.cs" />
     <Compile Include="Classes\StudentList.cs" />
     <Compile Include="Classes\Service.cs" />
+    <Compile Include="Forms\OneStudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OneStudentForm.Designer.cs">
+      <DependentUpon>OneStudentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,17 +77,29 @@
     <Compile Include="Forms\Students.Designer.cs">
       <DependentUpon>Students.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Subjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subjects.Designer.cs">
+      <DependentUpon>Subjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IMyList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OneStudentForm.resx">
+      <DependentUpon>OneStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Students.resx">
       <DependentUpon>Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subjects.resx">
+      <DependentUpon>Subjects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
