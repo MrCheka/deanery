@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.userId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoginColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblLogin = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblFio = new System.Windows.Forms.Label();
@@ -45,16 +50,12 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LoginColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RoleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvUsers
             // 
+            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.userId,
@@ -68,6 +69,41 @@
             this.dgvUsers.Size = new System.Drawing.Size(633, 300);
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUsers_RowHeaderMouseClick);
+            // 
+            // userId
+            // 
+            this.userId.DataPropertyName = "UserId";
+            this.userId.HeaderText = "user_id";
+            this.userId.Name = "userId";
+            this.userId.Visible = false;
+            // 
+            // LoginColumn
+            // 
+            this.LoginColumn.DataPropertyName = "Login";
+            this.LoginColumn.HeaderText = "Логин";
+            this.LoginColumn.Name = "LoginColumn";
+            this.LoginColumn.ReadOnly = true;
+            // 
+            // PasswordColumn
+            // 
+            this.PasswordColumn.DataPropertyName = "Password";
+            this.PasswordColumn.HeaderText = "Пароль";
+            this.PasswordColumn.Name = "PasswordColumn";
+            this.PasswordColumn.ReadOnly = true;
+            // 
+            // FioColumn
+            // 
+            this.FioColumn.DataPropertyName = "Fio";
+            this.FioColumn.HeaderText = "ФИО";
+            this.FioColumn.Name = "FioColumn";
+            this.FioColumn.ReadOnly = true;
+            // 
+            // RoleColumn
+            // 
+            this.RoleColumn.DataPropertyName = "Role";
+            this.RoleColumn.HeaderText = "Роль";
+            this.RoleColumn.Name = "RoleColumn";
+            this.RoleColumn.ReadOnly = true;
             // 
             // lblLogin
             // 
@@ -204,41 +240,6 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Роль";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // userId
-            // 
-            this.userId.DataPropertyName = "UserId";
-            this.userId.HeaderText = "user_id";
-            this.userId.Name = "userId";
-            this.userId.Visible = false;
-            // 
-            // LoginColumn
-            // 
-            this.LoginColumn.DataPropertyName = "Login";
-            this.LoginColumn.HeaderText = "Логин";
-            this.LoginColumn.Name = "LoginColumn";
-            this.LoginColumn.ReadOnly = true;
-            // 
-            // PasswordColumn
-            // 
-            this.PasswordColumn.DataPropertyName = "Password";
-            this.PasswordColumn.HeaderText = "Пароль";
-            this.PasswordColumn.Name = "PasswordColumn";
-            this.PasswordColumn.ReadOnly = true;
-            // 
-            // FioColumn
-            // 
-            this.FioColumn.DataPropertyName = "Fio";
-            this.FioColumn.HeaderText = "ФИО";
-            this.FioColumn.Name = "FioColumn";
-            this.FioColumn.ReadOnly = true;
-            // 
-            // RoleColumn
-            // 
-            this.RoleColumn.DataPropertyName = "Role";
-            this.RoleColumn.HeaderText = "Роль";
-            this.RoleColumn.Name = "RoleColumn";
-            this.RoleColumn.ReadOnly = true;
             // 
             // Settings
             // 

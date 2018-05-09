@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deanery.Classes
 {
-    class Subject : IEquatable<Subject>
+    public class Subject : IEquatable<Subject>
     {
         private int _subjectId;
         private string _shortName;

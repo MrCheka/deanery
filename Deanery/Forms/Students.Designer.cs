@@ -35,16 +35,6 @@
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvStudents = new System.Windows.Forms.DataGridView();
-            this.StudentIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SurnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PatronymicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudyingFormColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SpecialityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.YearColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SemesterColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AverageMarkColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -76,6 +66,16 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SurnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PatronymicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudyingFormColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SpecialityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.YearColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SemesterColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AverageMarkColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.SuspendLayout();
@@ -107,6 +107,7 @@
             this.tsmiAttendance.Name = "tsmiAttendance";
             this.tsmiAttendance.Size = new System.Drawing.Size(125, 24);
             this.tsmiAttendance.Text = "Посещаемость";
+            this.tsmiAttendance.Click += new System.EventHandler(this.tsmiAttendance_Click);
             // 
             // tsmiProgress
             // 
@@ -130,6 +131,7 @@
             // 
             // dgvStudents
             // 
+            this.dgvStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StudentIdColumn,
@@ -148,76 +150,6 @@
             this.dgvStudents.RowTemplate.Height = 24;
             this.dgvStudents.Size = new System.Drawing.Size(888, 453);
             this.dgvStudents.TabIndex = 1;
-            // 
-            // StudentIdColumn
-            // 
-            this.StudentIdColumn.DataPropertyName = "StudentId";
-            this.StudentIdColumn.HeaderText = "Student_id";
-            this.StudentIdColumn.Name = "StudentIdColumn";
-            this.StudentIdColumn.Visible = false;
-            // 
-            // SurnameColumn
-            // 
-            this.SurnameColumn.DataPropertyName = "Surname";
-            this.SurnameColumn.HeaderText = "Фамилия";
-            this.SurnameColumn.Name = "SurnameColumn";
-            this.SurnameColumn.ReadOnly = true;
-            // 
-            // NameColumn
-            // 
-            this.NameColumn.DataPropertyName = "Name";
-            this.NameColumn.HeaderText = "Имя";
-            this.NameColumn.Name = "NameColumn";
-            this.NameColumn.ReadOnly = true;
-            // 
-            // PatronymicColumn
-            // 
-            this.PatronymicColumn.DataPropertyName = "Patronymic";
-            this.PatronymicColumn.HeaderText = "Отчество";
-            this.PatronymicColumn.Name = "PatronymicColumn";
-            this.PatronymicColumn.ReadOnly = true;
-            // 
-            // StudyingFormColumn
-            // 
-            this.StudyingFormColumn.DataPropertyName = "StudyingForm";
-            this.StudyingFormColumn.HeaderText = "Форма обучения";
-            this.StudyingFormColumn.Name = "StudyingFormColumn";
-            this.StudyingFormColumn.ReadOnly = true;
-            // 
-            // SpecialityColumn
-            // 
-            this.SpecialityColumn.DataPropertyName = "Speciality";
-            this.SpecialityColumn.HeaderText = "Специальность";
-            this.SpecialityColumn.Name = "SpecialityColumn";
-            this.SpecialityColumn.ReadOnly = true;
-            // 
-            // GroupColumn
-            // 
-            this.GroupColumn.DataPropertyName = "Group";
-            this.GroupColumn.HeaderText = "Группа";
-            this.GroupColumn.Name = "GroupColumn";
-            this.GroupColumn.ReadOnly = true;
-            // 
-            // YearColumn
-            // 
-            this.YearColumn.DataPropertyName = "Year";
-            this.YearColumn.HeaderText = "Курс";
-            this.YearColumn.Name = "YearColumn";
-            this.YearColumn.ReadOnly = true;
-            // 
-            // SemesterColumn
-            // 
-            this.SemesterColumn.DataPropertyName = "Semester";
-            this.SemesterColumn.HeaderText = "Семестер";
-            this.SemesterColumn.Name = "SemesterColumn";
-            this.SemesterColumn.ReadOnly = true;
-            // 
-            // AverageMarkColumn
-            // 
-            this.AverageMarkColumn.DataPropertyName = "AverageMark";
-            this.AverageMarkColumn.HeaderText = "Средний балл";
-            this.AverageMarkColumn.Name = "AverageMarkColumn";
-            this.AverageMarkColumn.ReadOnly = true;
             // 
             // btnAdd
             // 
@@ -478,6 +410,76 @@
             this.dataGridViewTextBoxColumn10.HeaderText = "Средний балл";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
+            // StudentIdColumn
+            // 
+            this.StudentIdColumn.DataPropertyName = "StudentId";
+            this.StudentIdColumn.HeaderText = "Student_id";
+            this.StudentIdColumn.Name = "StudentIdColumn";
+            this.StudentIdColumn.Visible = false;
+            // 
+            // SurnameColumn
+            // 
+            this.SurnameColumn.DataPropertyName = "Surname";
+            this.SurnameColumn.HeaderText = "Фамилия";
+            this.SurnameColumn.Name = "SurnameColumn";
+            this.SurnameColumn.ReadOnly = true;
+            // 
+            // NameColumn
+            // 
+            this.NameColumn.DataPropertyName = "Name";
+            this.NameColumn.HeaderText = "Имя";
+            this.NameColumn.Name = "NameColumn";
+            this.NameColumn.ReadOnly = true;
+            // 
+            // PatronymicColumn
+            // 
+            this.PatronymicColumn.DataPropertyName = "Patronymic";
+            this.PatronymicColumn.HeaderText = "Отчество";
+            this.PatronymicColumn.Name = "PatronymicColumn";
+            this.PatronymicColumn.ReadOnly = true;
+            // 
+            // StudyingFormColumn
+            // 
+            this.StudyingFormColumn.DataPropertyName = "StudyingForm";
+            this.StudyingFormColumn.HeaderText = "Форма обучения";
+            this.StudyingFormColumn.Name = "StudyingFormColumn";
+            this.StudyingFormColumn.ReadOnly = true;
+            // 
+            // SpecialityColumn
+            // 
+            this.SpecialityColumn.DataPropertyName = "Speciality";
+            this.SpecialityColumn.HeaderText = "Специальность";
+            this.SpecialityColumn.Name = "SpecialityColumn";
+            this.SpecialityColumn.ReadOnly = true;
+            // 
+            // GroupColumn
+            // 
+            this.GroupColumn.DataPropertyName = "Group";
+            this.GroupColumn.HeaderText = "Группа";
+            this.GroupColumn.Name = "GroupColumn";
+            this.GroupColumn.ReadOnly = true;
+            // 
+            // YearColumn
+            // 
+            this.YearColumn.DataPropertyName = "Year";
+            this.YearColumn.HeaderText = "Курс";
+            this.YearColumn.Name = "YearColumn";
+            this.YearColumn.ReadOnly = true;
+            // 
+            // SemesterColumn
+            // 
+            this.SemesterColumn.DataPropertyName = "Semester";
+            this.SemesterColumn.HeaderText = "Семестер";
+            this.SemesterColumn.Name = "SemesterColumn";
+            this.SemesterColumn.ReadOnly = true;
+            // 
+            // AverageMarkColumn
+            // 
+            this.AverageMarkColumn.DataPropertyName = "AverageMark";
+            this.AverageMarkColumn.HeaderText = "Средний балл";
+            this.AverageMarkColumn.Name = "AverageMarkColumn";
+            this.AverageMarkColumn.ReadOnly = true;
             // 
             // Students
             // 

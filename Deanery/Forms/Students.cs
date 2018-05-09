@@ -33,6 +33,12 @@ namespace Deanery.Forms
 
         private void Students_Load(object sender, EventArgs e)
         {
+            if (Service.CurrentUser.Role == User.UserRole.Student)
+            {
+                btnAdd.Visible = false;
+                btnDelete.Visible = false;
+                btnEdit.Visible = false;
+            }
             _studentList = new StudentList();
             _studentList.Fill();
 
@@ -50,7 +56,7 @@ namespace Deanery.Forms
             var newStudent = new Student();
             var addForm = new OneStudentForm(OneStudentForm.WorkMode.AddStudent, newStudent);
             newStudent = addForm.ShowDialog();
-            if (newStudent != null)
+            if (newStudent != new Student())
                 _studentList.Add(newStudent);
             _studentList.Fill();
 
@@ -126,6 +132,12 @@ namespace Deanery.Forms
             OwnedForms[0].Show();
             RemoveOwnedForm(OwnedForms[0]);
             Close();
+        }
+
+        private void tsmiAttendance_Click(object sender, EventArgs e)
+        {
+            var attendanceForm = new AttendanceForm();
+            attendanceForm.ShowDialog();
         }
     }
 

@@ -71,12 +71,17 @@ namespace Deanery.Classes
 
             Service.CloseConnection(connection);
 
-            return _subjectList.Remove(item);
+            return _subjectList.RemoveAll(i => i.SubjectId == item.SubjectId) > 0;
         }
 
         public Subject Find(Subject item)
         {
             return _subjectList.Find(i => i == item);
+        }
+
+        public Subject Find(int id)
+        {
+            return _subjectList.Find(i => i.SubjectId == id);
         }
 
         public void Replace(int id, Subject item)
