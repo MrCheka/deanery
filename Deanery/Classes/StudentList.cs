@@ -115,8 +115,12 @@ namespace Deanery.Classes
             if (item.StudentId == 0)
                 return _studentList.Remove(item);
 
-            string request = " DELETE FROM Students " +
-                "WHERE student_id = @student_id ";
+            string request = " DELETE FROM Exams " +
+                " WHERE student_id = @student_id;" +
+                " DELETE FROM LessonStudents " +
+                " WHERE student_id = @student_id; " +
+                " DELETE FROM Students " +
+                " WHERE student_id = @student_id ";
 
             var command = new SqlCommand(request, connection);
 
