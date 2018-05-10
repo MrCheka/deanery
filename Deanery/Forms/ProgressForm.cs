@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Deanery.Classes;
 
@@ -25,6 +18,12 @@ namespace Deanery.Forms
 
         private void ProgressForm_Load(object sender, EventArgs e)
         {
+            if (Service.CurrentUser.Role == User.UserRole.Student)
+            {
+                dgvProgress.ReadOnly = true;
+                btnCancel.Visible = false;
+                btnSave.Visible = false;
+            }
             _examList.Fill();
             _subjectList.Fill();
             cmbSubject.DataSource = _subjectList.Value;
@@ -104,6 +103,12 @@ namespace Deanery.Forms
         {
             _examList.Fill();
             FillDataGridView();
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            var reportForm = new ProgressReport(dgvProgress, _subjectList.Value[cmbSubject.SelectedIndex].LongName);
+            reportForm.ShowDialog();
         }
     }
 }

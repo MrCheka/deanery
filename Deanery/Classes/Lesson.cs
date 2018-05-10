@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Deanery.Classes
 {
@@ -14,6 +11,7 @@ namespace Deanery.Classes
             Attended = 1,
             Missed = 2
         }
+
         private int _lessonId;
         private DateTime _date;
         private List<VisitState> _visitInfo;
