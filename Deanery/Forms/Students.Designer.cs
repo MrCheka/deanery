@@ -114,6 +114,7 @@
             this.tsmiProgress.Name = "tsmiProgress";
             this.tsmiProgress.Size = new System.Drawing.Size(119, 24);
             this.tsmiProgress.Text = "Успеваемость";
+            this.tsmiProgress.Click += new System.EventHandler(this.tsmiProgress_Click);
             // 
             // tsmiSettings
             // 
@@ -354,6 +355,7 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Имя";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 94;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -361,6 +363,7 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "Отчество";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 94;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -368,6 +371,7 @@
             this.dataGridViewTextBoxColumn4.HeaderText = "Форма обучения";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 94;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -375,6 +379,7 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Специальность";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 94;
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -382,6 +387,7 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "Группа";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 93;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -389,6 +395,7 @@
             this.dataGridViewTextBoxColumn7.HeaderText = "Курс";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 94;
             // 
             // dataGridViewTextBoxColumn8
             // 
@@ -396,6 +403,7 @@
             this.dataGridViewTextBoxColumn8.HeaderText = "Семестер";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 94;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -403,6 +411,7 @@
             this.dataGridViewTextBoxColumn9.HeaderText = "Средний балл";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 94;
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -410,6 +419,7 @@
             this.dataGridViewTextBoxColumn10.HeaderText = "Средний балл";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 94;
             // 
             // StudentIdColumn
             // 

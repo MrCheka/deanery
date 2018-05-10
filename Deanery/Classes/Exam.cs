@@ -9,7 +9,9 @@ namespace Deanery.Classes
     public class Exam: IEquatable<Exam>
     {
         private int _examId;
-        private Subject _subject;
+        private Subject _subjectExam;
+        private Student _studentExam;
+        private int _number;
         private int _mark;
 
         public int ExamId
@@ -20,8 +22,20 @@ namespace Deanery.Classes
 
         public Subject SubjectExam
         {
-            get { return _subject; }
-            set { _subject = value; }
+            get { return _subjectExam; }
+            set { _subjectExam = value; }
+        }
+
+        public Student StudentExam
+        {
+            get { return _studentExam; }
+            set { _studentExam = value; }
+        }
+
+        public int Number
+        {
+            get { return _number; }
+            set { _number = value; }
         }
 
         public int Mark
@@ -32,7 +46,8 @@ namespace Deanery.Classes
 
         public Exam()
         {
-            _subject = new Subject();
+            _subjectExam = new Subject();
+            _studentExam = new Student();
         }
 
         public static bool operator==(Exam left, Exam right)

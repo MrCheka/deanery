@@ -139,6 +139,12 @@ namespace Deanery.Forms
             var attendanceForm = new AttendanceForm();
             attendanceForm.ShowDialog();
         }
+
+        private void tsmiProgress_Click(object sender, EventArgs e)
+        {
+            var progressForm = new ProgressForm();
+            progressForm.ShowDialog();
+        }
     }
 
     public class StudyingFormDGVTextBoxCell : DataGridViewTextBoxCell

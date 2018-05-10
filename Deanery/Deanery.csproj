@@ -48,9 +48,8 @@
   <ItemGroup>
     <Compile Include="Classes\Attendance.cs" />
     <Compile Include="Classes\Exam.cs" />
+    <Compile Include="Classes\ExamList.cs" />
     <Compile Include="Classes\Lesson.cs" />
-    <Compile Include="Classes\Progress.cs" />
-    <Compile Include="Classes\Semester.cs" />
     <Compile Include="Classes\Subject.cs" />
     <Compile Include="Classes\SubjectList.cs" />
     <Compile Include="Forms\AttendanceForm.cs">
@@ -81,6 +80,12 @@
     </Compile>
     <Compile Include="Forms\OneSubjectForm.Designer.cs">
       <DependentUpon>OneSubjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
@@ -114,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OneSubjectForm.resx">
       <DependentUpon>OneSubjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
